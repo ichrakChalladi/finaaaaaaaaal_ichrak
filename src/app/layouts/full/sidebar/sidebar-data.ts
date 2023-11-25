@@ -38,6 +38,11 @@ export const navItems: NavItem[] = [
     route: '/ui-components/tooltips',
   },
   {
+    displayName: 'Reservation',
+    iconName: 'layout-navbar-expand',
+    route: '/ui-components/reservation',
+  },
+  {
     navCap: 'Auth',
   },
   {

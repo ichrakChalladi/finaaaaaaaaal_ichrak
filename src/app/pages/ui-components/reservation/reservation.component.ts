@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './reservation.component.html',
-  styleUrl: './reservation.component.scss'
+  styleUrls: ['./reservation.component.scss']
 })
 export class ReservationComponent {
 

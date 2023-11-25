@@ -34,6 +34,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     AppListsComponent,
     AppMenuComponent,
     AppTooltipsComponent,
+    
   ],
 })
 export class UicomponentsModule {}
