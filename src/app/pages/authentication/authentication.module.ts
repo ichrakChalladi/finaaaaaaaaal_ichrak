@@ -14,8 +14,8 @@ import * as TablerIcons from 'angular-tabler-icons/icons';
 
 import { AuthenticationRoutes } from './authentication.routing';
 
-import { AppSideLoginComponent } from './login/login.component';
-import { AppSideRegisterComponent } from './register/register.component';
+import { AppSideLoginComponent } from '../../core/login/login.component';
+import { AppSideRegisterComponent } from '../../core/register/register.component';
 
 @NgModule({
   imports: [

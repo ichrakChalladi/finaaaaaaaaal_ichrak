@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { AppSideLoginComponent } from './login/login.component';
-import { AppSideRegisterComponent } from './register/register.component';
+import { AppSideLoginComponent } from '../../core/login/login.component';
+import { AppSideRegisterComponent } from '../../core/register/register.component';
 
 export const AuthenticationRoutes: Routes = [
   {
