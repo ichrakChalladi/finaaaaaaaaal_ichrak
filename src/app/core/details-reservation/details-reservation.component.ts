@@ -11,6 +11,7 @@ import { ReservationService } from 'src/app/service/reservation.service';
   templateUrl: './details-reservation.component.html',
   styleUrls: ['./details-reservation.component.css']
 })
+/**test */
 export class DetailsReservationComponent {
   constructor(private serviceReservation: ReservationService, private router: Router,
     private activatedRoute: ActivatedRoute, private chamberService: ChambreService) { }
