@@ -1,0 +1,30 @@
+<div class="form">
+  <form [formGroup]="formb" (ngSubmit)="onSubmit()">
+    <label for="name">
+      Nom:
+      <input id="name" type="text" formControlName="namefb" required />
+    </label>
+
+    <label for="surname">
+      Prenom:
+      <input id="surname" type="text" formControlName="surnamefb" />
+    </label>
+
+    <label for="cin">
+      CIN:
+      <input id="cin" type="text" formControlName="cinfb" />
+    </label>
+
+    <label for="ecole">
+      Ecole:
+      <input id="ecole" type="text" formControlName="ecolefb" />
+    </label>
+
+    <label for="dateNaissance">
+      Date de naissance:
+      <input id="dateNaissance" type="date" formControlName="dateNaissancefb" />
+    </label>
+
+    <button type="submit">Update</button>
+  </form>
+</div>

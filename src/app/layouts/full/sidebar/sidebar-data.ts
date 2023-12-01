@@ -13,6 +13,11 @@ export const navItems: NavItem[] = [
     navCap: 'Ui Components',
   },
   {
+    displayName: 'Etudiant',
+    iconName: 'rosette',
+    route: 'etudiant/findAllE',
+  },
+  {
     displayName: 'Badge',
     iconName: 'rosette',
     route: '/ui-components/badge',

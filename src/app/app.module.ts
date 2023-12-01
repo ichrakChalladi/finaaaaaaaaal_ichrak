@@ -26,6 +26,12 @@ import { SidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { HeaderComponent } from './layouts/full/header/header.component';
 import { BrandingComponent } from './layouts/full/sidebar/branding.component';
 import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
+import {AddEtudiantComponent} from "./core/add-etudiant/add-etudiant.component";
+import {DeleteEtudiantComponent} from "./core/delete-etudiant/delete-etudiant.component";
+import {DetailEtudiantComponent} from "./core/detail-etudiant/detail-etudiant.component";
+import {ShowEtudiantComponent} from "./core/show-etudiant/show-etudiant.component";
+import {UpdateEtudiantComponent} from "./core/update-etudiant/update-etudiant.component";
+import {EtudiantComponent} from "./core/etudiant/etudiant.component";
 
 @NgModule({
   declarations: [
@@ -40,8 +46,14 @@ import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.co
     HeaderComponent,
     BrandingComponent,
     AppNavItemComponent,
+    AddEtudiantComponent,
+    DeleteEtudiantComponent,
+    DetailEtudiantComponent,
+    ShowEtudiantComponent,
+    UpdateEtudiantComponent,
+    EtudiantComponent,
     ///olololoooo
-    
+
   ],
   imports: [
     BrowserModule,

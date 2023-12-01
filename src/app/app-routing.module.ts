@@ -5,15 +5,42 @@ import { FullComponent } from './layouts/full/full.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ListReservationComponent } from './core/list-reservation/list-reservation.component';
 import { DetailsReservationComponent } from './core/details-reservation/details-reservation.component';
-const routes: Routes = [
+import {DetailEtudiantComponent} from "./core/detail-etudiant/detail-etudiant.component";
+import {ShowEtudiantComponent} from "./core/show-etudiant/show-etudiant.component";
+import {DeleteEtudiantComponent} from "./core/delete-etudiant/delete-etudiant.component";
+import {AddEtudiantComponent} from "./core/add-etudiant/add-etudiant.component";
+import {UpdateEtudiantComponent} from "./core/update-etudiant/update-etudiant.component";
+import {EtudiantComponent} from "./core/etudiant/etudiant.component";
+
+const routes: Routes =  [
   {
     path: '',
-  
     component: FullComponent,
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',     
+        redirectTo: '/Etudiant',
+        pathMatch: 'full'
+      },
+
+      // ...
+      {path: 'Etudiant', component: ShowEtudiantComponent},
+      //{path: 'etudiant/findAllE', component: ShowEtudiantComponent},
+      {path: 'etudiant/details/:id', component: DetailEtudiantComponent},
+      {path: 'etudiant/deleteEtudiant/:id', component: DeleteEtudiantComponent},
+      {path: 'etudiant/addEtudiant/:id', component: AddEtudiantComponent},
+      {path: 'etudiant/updateEtudiant/:id', component: UpdateEtudiantComponent},
+      // ...
+    ],
+  },
+  {
+    path: '',
+
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: '/dashboard',
         pathMatch: 'full',
       },
       {

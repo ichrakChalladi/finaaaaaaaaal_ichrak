@@ -1,0 +1,13 @@
+<div class="card">
+  <h5 class="card-header">Etudiant Details</h5>
+  <div class="card-body">
+    <h5 class="card-title">{{etudiant.name}} {{etudiant.surname}}</h5>
+    <p class="card-text">
+      <strong>CIN:</strong> {{etudiant.cin}} <br>
+      <strong>Date de naissance:</strong> {{etudiant.dateNaissance}} <br>
+      <strong>Ecole:</strong> {{etudiant.ecole}} <br>
+
+    </p>
+    <button (click)="detailEtudiant()" class="deltail-button">Detail Etudiant</button>
+  </div>
+</div>

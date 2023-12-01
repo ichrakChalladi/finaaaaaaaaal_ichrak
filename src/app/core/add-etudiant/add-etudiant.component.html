@@ -1,0 +1,39 @@
+
+<div class="card">
+  <div class="card-header">
+    <h3>Ajouter un Etudiant</h3>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="saveEtudiant(etudiant)">
+      <div class="form-group">
+        <label for="name">Nom :</label>
+        <input type="text" id="name" class="form-control" [(ngModel)]="etudiant.name" name="name" required  minlength="3" #nameetudiant="ngModel">
+        <span *ngIf="nameetudiant.invalid && nameetudiant.touched">
+<span *ngIf="nameetudiant.errors?.['required']">
+
+</span>
+<span *ngIf="nameetudiant.errors?.['minlength']">
+
+</span>
+    </span>
+      </div>
+      <div class="form-group">
+        <label for="surname">Prenom :</label>
+        <input type="text" id="surname" class="form-control" [(ngModel)]="etudiant.surname" name="surname" required >
+      </div>
+      <div class="form-group">
+        <label for="dateNaissance">Date de naissance :</label>
+        <input type="date" id="dateNaissance" class="form-control" [(ngModel)]="etudiant.dateNaissance" name="dateNaissance" required>
+      </div>
+      <div class="form-group">
+        <label for="cin">CIN :</label>
+        <input type="cin" id="cin" class="form-control" [(ngModel)]="etudiant.cin"pattern="[0-9]*" #cin="ngModel">
+      </div>
+      <div class="form-group">
+        <label for="ecole">Ecole :</label>
+        <input type="ecole" id="ecole" class="form-control" [(ngModel)]="etudiant.ecole" name="ecole" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </form>
+  </div>
+</div>
