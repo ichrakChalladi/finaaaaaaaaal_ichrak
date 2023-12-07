@@ -13,23 +13,23 @@ import {UpdateEtudiantComponent} from "./core/update-etudiant/update-etudiant.co
 import {EtudiantComponent} from "./core/etudiant/etudiant.component";
 
 const routes: Routes =  [
+  
+
   {
+   
     path: '',
     component: FullComponent,
     children: [
-      {
-        path: '',
-        redirectTo: '/Etudiant',
-        pathMatch: 'full'
-      },
 
       // ...
-      {path: 'Etudiant', component: ShowEtudiantComponent},
-      //{path: 'etudiant/findAllE', component: ShowEtudiantComponent},
-      {path: 'etudiant/details/:id', component: DetailEtudiantComponent},
-      {path: 'etudiant/deleteEtudiant/:id', component: DeleteEtudiantComponent},
-      {path: 'etudiant/addEtudiant/:id', component: AddEtudiantComponent},
-      {path: 'etudiant/updateEtudiant/:id', component: UpdateEtudiantComponent},
+      { path: 'update/:id', component: UpdateEtudiantComponent },
+      {path: 'addEtudiant', component: AddEtudiantComponent},
+      {path: '', component: ShowEtudiantComponent},
+      {path: 'details/:id', component: DetailEtudiantComponent},
+      {path: 'DeleteByIDEtudiant/:id', component: DeleteEtudiantComponent}
+      
+
+      
       // ...
     ],
   },

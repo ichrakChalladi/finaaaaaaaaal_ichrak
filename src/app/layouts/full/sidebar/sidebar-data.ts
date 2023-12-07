@@ -15,7 +15,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Etudiant',
     iconName: 'rosette',
-    route: 'etudiant/findAllE',
+    route: '',
   },
   {
     displayName: 'Badge',

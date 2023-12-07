@@ -8,6 +8,12 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { NavbarDashboardComponent } from './shared/navbar-dashboard/navbar-dashboard.component';
 import { ListReservationComponent } from './core/list-reservation/list-reservation.component';
 import { DetailsReservationComponent } from './core/details-reservation/details-reservation.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+
+
 
 // icons
 import { TablerIconsModule } from 'angular-tabler-icons';
@@ -32,6 +38,7 @@ import {DetailEtudiantComponent} from "./core/detail-etudiant/detail-etudiant.co
 import {ShowEtudiantComponent} from "./core/show-etudiant/show-etudiant.component";
 import {UpdateEtudiantComponent} from "./core/update-etudiant/update-etudiant.component";
 import {EtudiantComponent} from "./core/etudiant/etudiant.component";
+import { ErrorMessageStyleDirective } from './core/ErrorMessageStyleDirective';
 
 @NgModule({
   declarations: [
@@ -52,10 +59,12 @@ import {EtudiantComponent} from "./core/etudiant/etudiant.component";
     ShowEtudiantComponent,
     UpdateEtudiantComponent,
     EtudiantComponent,
+    ErrorMessageStyleDirective,
     ///olololoooo
 
   ],
   imports: [
+    
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -63,9 +72,14 @@ import {EtudiantComponent} from "./core/etudiant/etudiant.component";
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    MatInputModule,
+ MatDatepickerModule,
+ MatFormFieldModule,
     TablerIconsModule.pick(TablerIcons),
+    
+    
   ],
-  exports: [TablerIconsModule],
+  exports: [TablerIconsModule, ShowEtudiantComponent,],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

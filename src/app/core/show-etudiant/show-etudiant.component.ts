@@ -1,41 +1,107 @@
 import {Component, OnInit} from '@angular/core';
 import {Etudiant} from "../../model/Etudiant";
 import {EtudiantService} from "../../service/Etudiant.service";
+import Swal from 'sweetalert2';
+import * as e from 'cors';
+import { Router } from '@angular/router';
+import { jsPDF } from 'jspdf';
 
+declare var $: any; // Déclaration de $ pour éviter les erreurs de TypeScript
 @Component({
   selector: 'app-show-etudiant',
   templateUrl: './show-etudiant.component.html',
   styleUrls: ['./show-etudiant.component.scss']
 })
+
+
+
+
 export class ShowEtudiantComponent implements OnInit{
+  dataTablesInstance: any;
   show=false;
   showFormAdd=false;
   etudianttoSelected!:Etudiant;
-  constructor(private service:EtudiantService , private etudiantService: EtudiantService){
+  constructor(private service:EtudiantService , private etudiantService: EtudiantService,private router: Router){
   }
-  Etudiant!:Etudiant[];
+  Etudiants:Etudiant[]=[];
+
+  itemsPerPageOptions:number[] = [2,4,6]; 
+  page = 1;
+  itemsPerPage=5;
   ngOnInit(): void {
+
+
+    this.getEtudiants()
     this.service.getEtudiantList().subscribe(
       (d)=>{
         //console.log(d)
-        this.Etudiant=d;
+        this.Etudiants=d;
 
       }
     )
 
   }
-
-
-
+ 
   getEtudiants(): void {
     this.etudiantService.getEtudiantList()
-      .subscribe(etudiants => this.Etudiant = etudiants);
+    .subscribe(etudiants => {
+      this.Etudiants = etudiants;
+      console.log('Received etudiants:', etudiants); // Log the received data
+    });
+  
+  }
+  getEtudiantsForPage(): any[] {
+    const startIndex = (this.page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.Etudiants.slice(startIndex, endIndex);
   }
 
+  nextPage(): void {
+    if (this.page < this.totalPages()) {
+      this.page++;
+    }
+  }
+  prevPage(): void {
+    if (this.page > 1) {
+      this.page--;
+    }
+  }
+  totalPages(): number {
+    return Math.ceil(this.Etudiants.length / this.itemsPerPage);
+  }
+  changeItemsPerPage(event:Event): void {
+    const target = event.target as HTMLSelectElement | null;
+    if(target && 'value' in target){
+    const value = target.value;
+    if(value!== undefined){
+    this.itemsPerPage =Number (value);
+    this.page = 1; // Retour à la première page lorsque le nombre d'éléments par page est changé
+  }
+  }
+}
 
+  searchTerm: string = '';
+  advancedSearch() {
+    if (this.searchTerm.length >= 2) {
+      // Perform the search based on the first two characters
+      const filteredEtudiant = this.Etudiants.filter(Etudiant => {
+        const firstTwoChars = Etudiant.name.substring(0, 2).toLowerCase();
+        return firstTwoChars.includes(this.searchTerm.toLowerCase());
+      });
+
+      // Update the displayed foyers with the filtered results
+      this.Etudiants = filteredEtudiant;
+    } else {
+      // If the search term is less than two characters, reset the foyers to the original data
+      this.getEtudiants();
+    }
+  }
   update(e:Etudiant){
-    this.show=true;
+  this.show=true;
     this.etudianttoSelected=e
+    const id=this.etudianttoSelected.idEtudiant
+
+    this.router.navigate(['/updateEtudiant/:id', this.etudiantService.updateEtudiant]);
   }
 
   traitemenet(t:any){
@@ -44,9 +110,9 @@ export class ShowEtudiantComponent implements OnInit{
 
   changeTab(etu:any){
     this.show=false;
-    for(let i=0;i<this.Etudiant.length;i++){
-      if(this.Etudiant[i].id==etu.id){
-        this.Etudiant[i]=etu;
+    for(let i=0;i<this.Etudiants.length;i++){
+      if(this.Etudiants[i].idEtudiant==etu.id){
+        this.Etudiants[i]=etu;
       }
     }
   }
@@ -55,13 +121,76 @@ export class ShowEtudiantComponent implements OnInit{
   }
 
   addElementToTab(et:any){
-    this.Etudiant.push(et)
+    this.Etudiants.push(et)
   }
 
-  delete(e: Etudiant): void {
-    this.etudiantService.removeEtudiant(e)
-      .subscribe(() => this.getEtudiants());
-
-
+  deleteEtudiant(id:any): void {
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Voulez-vous vraiment supprimer ce etudiant ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer!',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.etudiantService.removeEtudiant(id).subscribe(
+          () => {
+            alert('Deleted Successfully')
+            console.log('etudiant deleted successfully');
+            
+            // Recharger les données DataTables
+            if (this.dataTablesInstance) {
+              this.dataTablesInstance.ajax.reload(null, false);
+           }
+           window.location.reload();
+         },
+         (err)=>{
+          let status=err.status;
+          switch (status){
+          case 0:alert('server ') ;break;
+          case 401:alert('unauthoriz ') ;break;
+          case 404:alert('unauthoriz ') ;break;
+          }
+        }
+        );
+      }
+    });
   }
+
+
+ // delete(e:Etudiant): void {
+
+   // this.etudiantService.removeEtudiant(e).subscribe(
+     //   () => {
+       //     console.log('etudiant supprimée avec succès');
+           // // Filtrer l"etudiant supprimée du tableau 
+         //   this.Etudiant = this.Etudiant.filter((e: Etudiant) => e.id !== e.id);
+        //},
+        //error => {
+          //  console.error('Erreur lors de la suppression de l"etudiant :', error);
+        //}
+    //);
+
+//}
+
+
+navigateToUpdate(id: number): void {
+  this.router.navigate(['/update',id]);
+}
+
+//navigateToStudent(studentId: number): void {
+ // if (studentId !== undefined && studentId !== null) {
+  //  this.router.navigate(['/update', studentId]); // Remplacez '/students' par votre chemin approprié
+ // } else {
+    //console.error('L\'ID de l\'étudiant est invalide.');
+    // Gestion des cas où l'ID est invalide ou non défini
+  ///}
+//}
+
+navigateToDetail(Id: number) {
+  this.router.navigate(['/details',Id]);
+}
 }

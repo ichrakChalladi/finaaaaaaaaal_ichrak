@@ -4,7 +4,9 @@ export const environment = {
     baseURL : "http://localhost:4200/dashboard/",
     ChamberBackendAPIS : "ChamberRestController",
     AuthentificationBackendURL : "auth/login",
-    RegistrationBackendURL : "auth/register"
+    RegistrationBackendURL : "auth/register",
+    EtudiantBackendAPIS:"EtudiantRestController",
+  //production: true
 };////ikram@@@@
 
 

@@ -1,30 +1,50 @@
-<div class="form">
-  <form [formGroup]="formb" (ngSubmit)="onSubmit()">
-    <label for="name">
-      Nom:
-      <input id="name" type="text" formControlName="namefb" required />
-    </label>
+<!-- update-etudiant.component.html -->
 
-    <label for="surname">
-      Prenom:
-      <input id="surname" type="text" formControlName="surnamefb" />
-    </label>
+<div>
+  <button (click)="goBack()" mat-flat-button color="accent">Retourner</button>
+  <h2>Update Student</h2>
 
-    <label for="cin">
-      CIN:
-      <input id="cin" type="text" formControlName="cinfb" />
-    </label>
+  <form [formGroup]="updateForm" (ngSubmit)="updateEtudiant()">
+    
 
-    <label for="ecole">
-      Ecole:
-      <input id="ecole" type="text" formControlName="ecolefb" />
-    </label>
+    <div>
+      <mat-form-field appearance="outline" class="w-50">
+      <mat-label for="name">Name:</mat-label>
+      <input matInput type="text" id="name" formControlName="name">
+    </mat-form-field>
+    </div>
 
-    <label for="dateNaissance">
-      Date de naissance:
-      <input id="dateNaissance" type="date" formControlName="dateNaissancefb" />
-    </label>
+    <div>
+      <mat-form-field>
+      <mat-label for="surname">Surname:</mat-label>
+      <input matInput type="text" id="surname" formControlName="surname">
+    </mat-form-field>
+    </div>
 
-    <button type="submit">Update</button>
+    <div>
+      <mat-form-field>
+      <mat-label for="cin">CIN:</mat-label>
+      <input matInput type="text" id="cin" formControlName="cin">
+    </mat-form-field>
+    </div>
+
+    <div>
+    <mat-form-field>
+      <mat-label for="ecole">Ecole:</mat-label>
+      <input matInput type="text" id="ecole" formControlName="ecole">
+    </mat-form-field>
+    </div>
+
+    <div>
+    <mat-form-field>
+      <mat-label for="dateNaissance">Date of Birth:</mat-label>
+      <input matInput type="date" id="dateNaissance" formControlName="dateNaissance">
+    </mat-form-field>
+    </div>
+
+    <div>
+      
+      <button type="submit" mat-flat-button color="accent">Update</button>
+    </div>
   </form>
 </div>

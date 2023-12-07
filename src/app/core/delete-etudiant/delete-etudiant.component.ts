@@ -3,39 +3,23 @@ import {EtudiantService} from "../../service/Etudiant.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-delete-etudiant',
-  templateUrl: './delete-etudiant.component.html',
-  styleUrls: ['./delete-etudiant.component.scss']
+ selector: 'app-delete-etudiant',
+ templateUrl: './delete-etudiant.component.html',
+ styleUrls: ['./delete-etudiant.component.scss']
 })
 export class DeleteEtudiantComponent {
 
-  constructor(private etudiant:EtudiantService
-    ,private ac:ActivatedRoute,
-              private router:Router) {
-  }
-  ngOnInit(){
-    this.etudiant.removeEtudiant(this.ac.snapshot.params['id']).subscribe(
-      ()=>{
-        alert('next')
-        //this.router.navigate(['etudiant'])
-      },
-      (err)=>{
-        let status=err.status;
-        switch (status){
-          case 0:alert('server ') ;break;
-          case 401:alert('unauthoriz ') ;break;
-          case 404:alert('unauthoriz ') ;break;
-        }
-      });
+ constructor(private etudiantService: EtudiantService,
+              private ac: ActivatedRoute,
+              private router: Router) {
+ }
 
-  }
-
-  deleteEtudiant() {
+ deleteEtudiant(id:any) {
     if (confirm('Are you sure you want to delete this etudiant?')) {
-      this.etudiant.removeEtudiant(this.ac.snapshot.params['id']).subscribe(
+      this.etudiantService.removeEtudiant(id).subscribe(
         () => {
           alert('Etudiant deleted successfully');
-          this.router.navigate(['etudiant']);
+          
         },
         (err) => {
           let status = err.status;
@@ -46,5 +30,5 @@ export class DeleteEtudiantComponent {
           }
         });
     }
-  }
+ }
 }

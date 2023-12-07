@@ -28,6 +28,6 @@ export class DetailEtudiantComponent implements OnInit {
   }
 
   detailEtudiant() {
-    this.router.navigate(['/etudiant-details', this.etudiant.id]);
+    this.router.navigate(['/etudiant-details', this.etudiant.idEtudiant]);
   }
 }

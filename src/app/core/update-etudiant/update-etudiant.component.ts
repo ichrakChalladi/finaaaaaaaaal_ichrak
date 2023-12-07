@@ -1,48 +1,61 @@
-import { Component } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Etudiant } from 'src/app/model/Etudiant';
+import { EtudiantService } from 'src/app/service/Etudiant.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-update-etudiant',
   templateUrl: './update-etudiant.component.html',
   styleUrls: ['./update-etudiant.component.scss']
 })
-export class UpdateEtudiantComponent {
-  name=new FormControl('',Validators.required);
-  surname=new FormControl('');
-  cin=new FormControl('');
-  ecole=new FormControl('');
-  dateNaissance=new FormControl('');
-  showForm(){
-    console.log(this.name)
-  }
-  fg=new FormGroup({
-    namefg:new FormControl('',[Validators.required, Validators.minLength(3)]),
-    surnamefg: new FormControl(),
-    cin:new FormControl(''),
-    ecole:new FormControl(''),
-    dateNaissance:new FormControl(''),
+export class UpdateEtudiantComponent implements OnInit {
 
-  })
-  showFromFG(){
-    console.log(this.fg)
-  }
+  etudiant: Etudiant;
+  updateForm: FormGroup; // Renommage de la variable formBuilder en updateForm
 
-  get namefgE(){
-    return this.fg.get('namefg')
-  }
-  constructor(private fb:FormBuilder){
+  constructor(
+    private fb: FormBuilder,
+    private etudiantService: EtudiantService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private location: Location
+  ) { }
 
-  }
-  formb=this.fb.group({
-    namefb:['',],
-    surnamefb:['',],
-    cinfb:[''],
-    ecolefb:[''],
-    dateNaissancefb:[''],
+  ngOnInit() {
+    // Création du formulaire avec les champs et les validateurs requis
+    this.updateForm = this.fb.group({
+      id: [''],
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      cin: ['', Validators.required],
+      ecole: ['', Validators.required],
+      dateNaissance: ['', Validators.required]
+    });
 
-  })
-  onSubmit() {
-    console.log('Form Submitted:', this.formb.value);
+    // Récupération de l'étudiant à partir de l'ID de la route
+    this.etudiantService.getEtudiantById(this.route.snapshot.params['id']).subscribe((data: Etudiant) => {
+      this.etudiant = data;
+      this.updateForm.patchValue(this.etudiant); // Remplir le formulaire avec les données de l'étudiant
+    });
   }
 
+
+  goBack(): void {
+    this.location.back();
+  }
+
+
+  updateEtudiant() {
+    this.etudiantService.updateEtudiant(this.updateForm.value).subscribe(
+      () => {
+        console.log('Etudiant updated successfully:');
+        this.router.navigate(['']);
+      },
+      (error) => {
+        console.error('Error updating etudiant:', error);
+      }
+    );
+  }
 }
